@@ -6,5 +6,13 @@ class Player < ActiveRecord::Base
         Planet.create(name: "name")
     end
 
+    def check_life
+        if self.life <= 0
+          puts "Game Over"
+        else
+          puts "You now have a life of #{self.life}"
+        end
+        self.life
+      end
 
 end

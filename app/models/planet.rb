@@ -20,4 +20,8 @@ class Planet < ActiveRecord::Base
         wait = gets.chomp    
     end
     
+    def lookup
+        puts "this planet was discovered by #{self.landings.first.player.name}"
+    end
+
 end

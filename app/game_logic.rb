@@ -61,6 +61,7 @@ def start
     end
     end
     player
+  
 end
 
 def liftoff(player)
@@ -81,7 +82,7 @@ def liftoff(player)
       puts "Onward to #{planet.split.map(&:capitalize).join(" ")}!!! Hit 'enter' to continue"
       wait = gets.chomp
       Planet.find_by(name: planet.split.map(&:capitalize).join(" ")).encounter(player)
-      check_life(player)
+      player.check_life
       puts "Your business on #{planet.split.map(&:capitalize).join(" ")} is finished!"
       wait = gets.chomp
       i = 1
@@ -97,30 +98,15 @@ def on_planet_choice(planet, player)
   if explore == "explore"
     puts "********************\n\n"
     Planet.find_by(name: planet).encounter(player)
-    check_life(player)
   elsif explore == "lookup" 
     puts "********************\n\n"
-    lookup
+    Planet.find_by(name: planet.split.map(&:capitalize).join(" ")).lookup
   end
   player
 end
 
-def check_life(player)
-  if player.life <= 0
-    puts "Game Over"
-  else
-    puts "You now have a life of #{player.life}"
-  end
-    player
-end
 
 
-def explore(player)
-end
-
-def lookup
-  puts "Let's see what has happened here"
-end
 
 
 def space_navigate(player)
