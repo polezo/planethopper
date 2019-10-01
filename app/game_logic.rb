@@ -91,22 +91,6 @@ def liftoff(player)
   player
 end
 
-def on_planet_choice(planet, player)
-  puts "Congrats on safely arriving to #{planet}"
-  puts "Do you want to look up the history of this planet or do you want to explore?? Enter 'lookup' or 'explore'"
-  explore = gets.chomp
-  if explore == "explore"
-    puts "********************\n\n"
-    Planet.find_by(name: planet).encounter(player)
-  elsif explore == "lookup" 
-    puts "********************\n\n"
-    Planet.find_by(name: planet.split.map(&:capitalize).join(" ")).lookup
-  end
-  player
-end
-
-
-
 
 
 def space_navigate(player)
@@ -128,7 +112,7 @@ def space_navigate(player)
     else
       puts "********************\n\n"
       puts "Onward to #{planet.split.map(&:capitalize).join(" ")}!!!"
-      on_planet_choice(planet.split.map(&:capitalize).join(" "), player)
+      player.on_planet_choice(planet.split.map(&:capitalize).join(" "))
       i = 1
     end
   end

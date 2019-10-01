@@ -17,11 +17,13 @@ class Planet < ActiveRecord::Base
                 landing.save
             end
         end
-        wait = gets.chomp    
+        wait = gets.chomp 
     end
     
-    def lookup
+    def lookup(player)
         puts "this planet was discovered by #{self.landings.first.player.name}"
+        wait = gets.chomp
+        player.on_planet_choice(self.name)
     end
 
 end
