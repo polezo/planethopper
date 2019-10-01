@@ -1,4 +1,5 @@
-require_relative "./models/player.rb"
+require_relative "../config/environment"
+
 
 def welcome
     puts "                                                                   ..;===+.
@@ -48,15 +49,45 @@ def start
     while i == 0
     input = gets.chomp
     if input.downcase == 's'
+        puts "********************\n\n"
         puts "Enter your name..."
         name = gets.chomp
-        player = Player.new(name)
+        player = Player.new(name: name, life: 10)
+        player.save
         i = 1
     else
         puts "that is not an 'S'"
         puts "Enter 'S' to start"
-        end
     end
+    end
+    player
 end
 
+def liftoff(player)
+  puts "********************\n\n"
+  puts "you are off on an adventure and have enough gas to travel to 3 planets"
+  i = 0
+  while i == 0
+    puts "enter the name of one of the planets below"
+    puts "********************\n\n"
+    next_3 = Planet.all.first(3).map { |planet| planet.name}
+    puts next_3
+    planet = gets.chomp.capitalize
+    if !next_3.include?(planet)
+      puts "********************\n\n"
+      puts "You cannot travel there!!"
+    else
+      puts "********************\n\n"
+      puts "Onward to #{planet}!!!"
+      Planet.find_by(name: planet).encounter(player)
+      i = 1
+    end
+  end
+  player
+end
+
+def next_planet(player)
+  planets_visited = player.planets
+  binding.pry
+end
 
