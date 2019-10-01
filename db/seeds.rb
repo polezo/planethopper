@@ -14,9 +14,9 @@ venus = Planet.find_or_create_by(name: "Venus",bad_scenario: "You've encountered
 neptune = Planet.find_or_create_by(name: "Neptune",bad_scenario: "You've encountered a giraffe with a laser!", good_scenario: "You won!")
 zebes = Planet.find_or_create_by(name: "Zebes",bad_scenario: "You've encountered a lizard with a laser!", good_scenario: "You won!")
 coruscant = Planet.find_or_create_by(name: "Coruscant",bad_scenario: "You've encountered a lion with a laser!", good_scenario: "You won!")
-zb931 = Planet.find_or_create_by(name: "Earth Three",bad_scenario: "You've encountered a frog with a laser!", good_scenario: "You won!")
+zb931 = Planet.find_or_create_by(name: "EarthThree",bad_scenario: "You've encountered a frog with a laser!", good_scenario: "You won!")
 hoth = Planet.find_or_create_by(name: "Hoth",bad_scenario: "You've encountered a ballerina with a laser!", good_scenario: "You won!")
-earth2 = Planet.find_or_create_by(name: "Earth Two",bad_scenario: "You've encountered a blob with a laser!", good_scenario: "You won!")
+earth2 = Planet.find_or_create_by(name: "EarthTwo",bad_scenario: "You've encountered a blob with a laser!", good_scenario: "You won!")
 
 
 landing1 = Landing.find_or_create_by(player: adam, planet: mars)

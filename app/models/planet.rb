@@ -17,10 +17,10 @@ class Planet < ActiveRecord::Base
                 landing.save
             end
         end
-        wait = gets.chomp    
+        puts "Your business on #{self.name} is finished! On to your next voyage!"    
     end
     
-    def lookup
+    def lookup_planet_stats
         puts "this planet was discovered by #{self.landings.first.player.name}"
     end
 
