@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 4) do
+ActiveRecord::Schema.define(version: 5) do
 
   create_table "landings", force: :cascade do |t|
     t.integer "planet_id"
     t.integer "player_id"
+    t.boolean "died"
   end
 
   create_table "planets", force: :cascade do |t|

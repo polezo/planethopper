@@ -4,16 +4,20 @@ class Planet < ActiveRecord::Base
 
     
     def encounter(player)
-        Landing.create(player: player, planet: self)
+        landing = Landing.create(player: player, planet: self)
         chance = rand(1..2)
         if chance == 1
             puts self.good_scenario
             player.life += 2
         else
             puts self.bad_scenario
-            player.life -= 2
+            player.life -= 5
+            if player.life == 0
+                landing.died = true
+                landing.save
+            end
         end
-        puts "You now have a life of #{player.life}"
+        wait = gets.chomp    
     end
     
 end
