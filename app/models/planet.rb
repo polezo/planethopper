@@ -4,8 +4,7 @@ class Planet < ActiveRecord::Base
 
     
     def encounter(player)
-        this_landing = Landing.new(player: player, planet: self)
-        this_landing.save
+        Landing.create(player: player, planet: self)
         chance = rand(1..2)
         if chance == 1
             puts self.good_scenario
