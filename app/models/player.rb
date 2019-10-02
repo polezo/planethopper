@@ -26,7 +26,7 @@ class Player < ActiveRecord::Base
     end
 
     def check_if_won
-      if self.planets.count == 8
+      if self.planets.count == 2
         puts "You are a master voyager of the Universe!!" 
         true
       end
