@@ -17,7 +17,10 @@ while alive
     if answer == "explore"
         Planet.find_by(name: chosen_planet).encounter(player)
         player.check_life
-        break if player.check_if_won
+        if player.check_if_won
+            player.create_planet(player)
+            break
+        end
     elsif answer == "lookup"
         Planet.find_by(name: chosen_planet).lookup_planet_stats
         player.on_planet_choice(chosen_planet)
