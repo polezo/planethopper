@@ -51,7 +51,7 @@ def start
         new_line
         puts "Enter your name..."
         name = gets.chomp
-        player = Player.new(name: name, life: 100)
+        player = Player.new(name: name, life: 10)
         player.save
         break
     else

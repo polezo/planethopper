@@ -11,7 +11,7 @@ class Planet < ActiveRecord::Base
             player.life += 2
         else
             puts self.bad_scenario
-            player.life -= 5
+            player.battle_choice(self)
             if player.life == 0
                 landing.died = true
                 landing.save
