@@ -21,17 +21,20 @@ class Planet < ActiveRecord::Base
         wait = gets    
     end
     
-    def lookup_planet_stats
+def lookup_planet_stats
+        self.landings.length == 0 ? text = "Congratulations! You are the first visitor to this #{self.name}" : text = "#{self.name} has been landed on by #{self.landings.length} explorers before you"
+        puts text
         if self.creator == nil
-            puts "This planet was here since the beginning of time, no one knows who created it!"
+            puts "It has been here since the beginning of time, no one knows who created it!"
         else
-            puts "This planet was created by Master of the Universe #{self.creator}"
+            puts "It was created by Master of the Universe #{self.creator}"
         end
         if self.champion == nil
-            puts "This planet currently does not have a champion and is ripe for the taking!!"
+            puts "It currently does not have a champion and is ripe for the taking!!"
         else
             puts "#{self.champion} is the current champion of #{self.name}, but you can overtake them with a victory!"
         end
+        
         new_line
         wait = gets.chomp
     end
