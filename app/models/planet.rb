@@ -4,10 +4,10 @@ class Planet < ActiveRecord::Base
 
     
     def encounter(player)
-        #landing = Landing.create(player: player, planet: self)
         chance = rand(1..2)
         if chance == 1
             puts self.good_scenario
+            wait = gets.chomp
             player.life += 2
         else
             puts self.bad_scenario
@@ -17,7 +17,8 @@ class Planet < ActiveRecord::Base
                 landing.save
             end
         end
-        puts "Your business on #{self.name} is finished! On to your next voyage!"    
+        puts "Your business on #{self.name} is finished! On to your next voyage!"
+        wait = gets    
     end
     
     def lookup_planet_stats
@@ -26,7 +27,13 @@ class Planet < ActiveRecord::Base
         else
             puts "This planet was created by Master of the Universe #{self.creator}"
         end
+        if self.champion == nil
+            puts "This planet currently does not have a champion and is ripe for the taking!!"
+        else
+            puts "#{self.champion} is the current champion of #{self.name}, but you can overtake them with a victory!"
+        end
         new_line
+        wait = gets.chomp
     end
 
 end

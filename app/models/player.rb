@@ -4,7 +4,6 @@ class Player < ActiveRecord::Base
     
 
     def on_planet_choice(planet)
-      landing = Landing.create(player: self, planet: Planet.find_by(name: planet))
       puts "Congrats on safely arriving to #{planet}"
       puts "Do you want to look up the history of this planet or do you want to explore?? Enter 'lookup' or 'explore'"
       answer = gets.chomp
@@ -60,6 +59,7 @@ class Player < ActiveRecord::Base
           text = "ATTACKING NOW!"
           answer2.downcase == "a" ? damage_given = rand(0...3) : text = "that's not an attack! The enemy now has time to attack for free" 
           puts text
+          wait = gets.chomp
           baddie_life -= damage_given
           puts "uh oh..." if damage_given == 0
           puts "You did #{damage_given} damage to your enemy, they have #{baddie_life} hit points left" 
@@ -69,15 +69,18 @@ class Player < ActiveRecord::Base
           wait = gets.chomp
           damage_taken = rand(0..3)
           self.life -= damage_taken
-          damage_taken == 0 ? damage_text = "they missed! Nice dodge" : damage_text = "they still hit you!"
+          damage_taken == 0 ? damage_text = "They missed! Nice dodge" : damage_text = "They still hit you!"
           puts damage_text
-          puts "You took #{damage_taken} damage from the enemies attack. you have #{self.life} hit points left. Press enter to continue"
+          puts "You took #{damage_taken} damage from the enemies attack. You have #{self.life} hit points left. Press enter to continue"
           wait = gets.chomp
-        elsif answer.downcase == "r" 
+        elsif answer.downcase == "r"
+          new_line
           puts "you try and run away"
+          wait = gets.chomp
           succeed = rand(1..2)
           if succeed == 1
             puts "you successsfully run away"
+            wait = gets.chomp
             break
           else 
             puts "Run away unsuccessful. They've got you cornered and got a free hit on you and you lost 2 life!"
@@ -96,7 +99,10 @@ class Player < ActiveRecord::Base
     end
 
     def won_fight(planet)
-      puts "you won the fight! You are now the champion of #{planet.name}"
+      new_line
+      puts "You won the fight! You are now the current champion of #{planet.name}!"
+      planet.champion = self.name
+      gets
     end
 
 end
