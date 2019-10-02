@@ -26,7 +26,7 @@ class Planet < ActiveRecord::Base
         else
             puts "This planet was created by Master of the Universe #{self.creator}"
         end
-            new_line
+        new_line
     end
 
 end

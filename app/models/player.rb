@@ -2,9 +2,6 @@ class Player < ActiveRecord::Base
     has_many :landings
     has_many :planets, through: :landings
     
-    def create_planet(name)
-        Planet.create(name: "name")
-    end
 
     def on_planet_choice(planet)
       landing = Landing.create(player: self, planet: Planet.find_by(name: planet))
@@ -33,6 +30,19 @@ class Player < ActiveRecord::Base
         puts "You are a master voyager of the Universe!!" 
         true
       end
+    end
+
+    def create_planet(player)
+      puts "As a Master of the Universe you can now add your own planet! What would you like to name it?"
+      planet_name = gets.chomp.capitalize
+      user_planet = Planet.create(name: planet_name, creator: player.name)
+      puts "What good fortunate could someone encounter on your planet? [Enter below]"
+      good_scenario = gets.chomp
+      user_planet.good_scenario = good_scenario
+      puts "And what trouble awaits those who vist your planet? [Enter below]"
+      bad_scenario = gets.chomp
+      user_planet.bad_scenario = bad_scenario
+      user_planet.save
     end
 
     def battle_choice(planet)
