@@ -4,7 +4,7 @@ class Planet < ActiveRecord::Base
 
     
     def encounter(player)
-        landing = Landing.create(player: player, planet: self)
+        #landing = Landing.create(player: player, planet: self)
         chance = rand(1..2)
         if chance == 1
             puts self.good_scenario
@@ -21,7 +21,12 @@ class Planet < ActiveRecord::Base
     end
     
     def lookup_planet_stats
-        puts "this planet was discovered by #{self.landings.first.player.name}"
+        if self.creator == nil
+            puts "This planet was here since the beginning of time, no one knows who created it!"
+        else
+            puts "This planet was created by Master of the Universe #{self.creator}"
+        end
+            new_line
     end
 
 end

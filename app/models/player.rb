@@ -7,6 +7,7 @@ class Player < ActiveRecord::Base
     end
 
     def on_planet_choice(planet)
+      landing = Landing.create(player: self, planet: Planet.find_by(name: planet))
       puts "Congrats on safely arriving to #{planet}"
       puts "Do you want to look up the history of this planet or do you want to explore?? Enter 'lookup' or 'explore'"
       answer = gets.chomp
@@ -19,11 +20,11 @@ class Player < ActiveRecord::Base
     end
 
     def check_life
-        if self.life <= 0
-          puts "Game Over"
-        else
-          puts "You now have a life of #{self.life}"
-        end
+      if self.life <= 0
+        puts "Game Over"
+      else
+        puts "You now have a life of #{self.life}"
+      end
         self.life
     end
 
