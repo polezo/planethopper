@@ -102,6 +102,7 @@ class Player < ActiveRecord::Base
       new_line
       puts "You won the fight! You are now the current champion of #{planet.name}!"
       planet.champion = self.name
+      planet.save
       gets
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 6) do
+ActiveRecord::Schema.define(version: 7) do
 
   create_table "landings", force: :cascade do |t|
     t.integer "planet_id"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 6) do
     t.string "bad_scenario"
     t.string "good_scenario"
     t.string "creator"
+    t.string "champion"
   end
 
   create_table "players", force: :cascade do |t|

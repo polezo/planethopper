@@ -28,15 +28,6 @@ while alive
         player.create_planet(player)
         break
     end
-    # elsif answer == "lookup"
-    #     Planet.find_by(name: chosen_planet).lookup_planet_stats
-    #     puts "You have researched the planet, now you go out and explore what there is to see in this world"
-    #     Planet.find_by(name: chosen_planet).encounter(player)
-    #     player.check_life
-    #     if player.check_if_won
-    #         player.create_planet(player)
-    #         break
-    #     end
     if player.life == 0
         puts "You died!! Game Over"
         break

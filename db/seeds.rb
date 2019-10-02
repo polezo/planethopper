@@ -19,4 +19,4 @@ hoth = Planet.find_or_create_by(name: "Hoth",bad_scenario: "You've encountered a
 earth2 = Planet.find_or_create_by(name: "Earthtwo",bad_scenario: "You've encountered a blob with a laser!", good_scenario: "You got some medicine! Your health is increased")
 
 
-landing1 = Landing.find_or_create_by(player: adam, planet: mars)
+#landing1 = Landing.find_or_create_by(player: adam, planet: mars)
