@@ -7,12 +7,6 @@ class Player < ActiveRecord::Base
     def on_planet_choice(planet)
       puts "Congrats on safely arriving to #{planet}"
       explore_or_lookup = $prompt.select("Do you want to look up the history of this planet or do you want to explore??", ["Lookup", "Explore"])
-      # if answer == "explore"
-      #   return "explore"
-      # elsif answer == "lookup" 
-      #   return "lookup"
-      # end
-      # #planet
     end
 
     def check_life
