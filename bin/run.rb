@@ -15,6 +15,7 @@ gets
 
 new_line
 puts "You are off on an adventure and have enough gas to travel to one of the planets below"
+gets
 
 alive = true
 
