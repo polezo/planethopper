@@ -3,8 +3,8 @@ Planet.destroy_all
 Landing.destroy_all
 
 
-adam = Player.find_or_create_by(name: "Adam", life: 10)
-khaled = Player.find_or_create_by(name: "Khaled", life: 10)
+# adam = Player.find_or_create_by(name: "Adam", life: 10)
+# khaled = Player.find_or_create_by(name: "Khaled", life: 10)
 
 earth = Planet.find_or_create_by(name: "Earth",bad_scenario: "You've encountered a friggin shark with a laser!", good_scenario: "You found a box of chocolate! Your health is increased.")
 mars = Planet.find_or_create_by(name: "Mars", bad_scenario: "You've encountered Marvin the Martian with a laser!", good_scenario: "Bank error in your favor!! Your health is increased.")
