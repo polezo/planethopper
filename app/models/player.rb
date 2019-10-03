@@ -1,6 +1,7 @@
 class Player < ActiveRecord::Base
     has_many :landings
     has_many :planets, through: :landings
+    has_many :weapons
 
     $prompt = TTY::Prompt.new
     
@@ -19,7 +20,7 @@ class Player < ActiveRecord::Base
     end
 
     def check_if_won
-      if self.planets.count == 2
+      if self.planets.count == 8
         new_line
         puts "You are a master voyager of the Universe!!" 
         true
@@ -48,6 +49,7 @@ class Player < ActiveRecord::Base
         else
           user_planet.good_scenario = good_scenario
           new_line
+          puts "Thanks for playing! A game by Khaled and Adam"
           break
         end
       end

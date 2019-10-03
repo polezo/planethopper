@@ -20,3 +20,9 @@ earth2 = Planet.find_or_create_by(name: "Earthtwo",bad_scenario: "You've encount
 
 
 #landing1 = Landing.find_or_create_by(player: adam, planet: mars)
+
+
+t.string :name
+t.integer :damage_low
+t.integer :damage_high
+t.boolean :dangerous?
