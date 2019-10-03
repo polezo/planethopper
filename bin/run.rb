@@ -2,6 +2,7 @@ require_relative "../config/environment"
 
 welcome
 player = start
+return nil if !player ##ends the game if someone tries to log in as existing player and provides incorrect password
 
 new_line
 puts "You are off on an adventure and have enough gas to travel to one of the planets below: [Enter planet name]"

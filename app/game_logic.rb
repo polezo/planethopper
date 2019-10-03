@@ -54,6 +54,11 @@ def welcome
 
 end
 
+def password_check
+  puts "To ensure you are not an imposter, what is your password?"
+  password = gets.chomp
+end
+
 def start 
     while true
     input = gets.chomp
@@ -61,18 +66,25 @@ def start
         new_line
         puts "Enter your name..."
         name = gets.chomp
-        if Player.find_by(name: name)
-          if Player.check_if_new_player(name)
+        if Player.find_by(name: name) ##if a player with the same name exists in DB
+          if Player.check_if_new_player(name) ##Asks player if they are new, returns true if they say yes
             new_name = "#{name}" + "#{rand(1..3000)}"
-            puts "You will be called #{new_name}"
+            puts "You will be called #{new_name}"  ##will create player with appended name
             player = Player.create(name: new_name, life: 10)
-          else
-            player = Player.find_by(name: name)
+            player.set_password
             break
+          else
+            if password_check == Player.find_by(name: name).password ##if they provide
+              player = Player.find_by(name: name) ##correct password will not create new player
+              break         ## but let them continue as themselves
+            else
+              puts "Imposter, begone from here!"
+              break
+            end
           end
         end
         player = Player.create(name: name, life: 10)
-        player.save
+        player.set_password
         break
     else
         puts "that is not an 'S'"

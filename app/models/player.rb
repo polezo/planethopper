@@ -122,5 +122,12 @@ class Player < ActiveRecord::Base
       end
     end
 
+    def set_password
+      new_line
+      puts "Pick a password:"
+      password = gets.chomp
+      self.password = password
+      self.save
+    end
 
 end
