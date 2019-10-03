@@ -113,3 +113,38 @@ def planets_available_to_player(player)
   can_travel_to = all_planets_minus_visited.sample(number_of_planets_to_travel).map { |planet| planet.name.downcase }
   planet = $prompt.select("Which planet will you travel to now?", can_travel_to.map {|planet| planet.split.map(&:capitalize).join(" ")})
 end
+
+def rocket
+    puts"    
+        !
+        !
+        ^
+       / \\
+      /___\\
+     |=   =|
+     | P H |
+     | L O |
+     | A P |
+     | N P |
+     | E E |
+     | T R |
+     |     |
+     |     |
+     |     |
+    /|##!##|\\
+   / |##!##| \\
+  /  |##!##|  \\
+ |  / ^ | ^ \\  |
+ | /  ( | )  \\ |
+ |/   ( | )   \\|"+
+ ColorizedString["
+     ((   ))
+    ((  :  ))
+    ((  :  ))
+     ((   ))
+      (( ))
+       ( )
+        .
+        .
+     "].colorize(:light_red)
+end
