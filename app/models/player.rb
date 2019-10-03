@@ -57,7 +57,7 @@ class Player < ActiveRecord::Base
           answer2 = gets.chomp 
           new_line
           text = "ATTACKING NOW!"
-          answer2.downcase == "a" ? damage_given = rand(0...3) : text = "that's not an attack! The enemy now has time to attack for free" 
+          answer2.downcase == "a" ? damage_given = rand(0..3) : text = "that's not an attack! The enemy now has time to attack for free" 
           puts text
           wait = gets.chomp
           baddie_life -= damage_given
