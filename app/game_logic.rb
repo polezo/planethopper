@@ -103,7 +103,7 @@ def start
 end
 
 def new_line
-  puts ColorizedString["**************************************************\n\n"].colorize(:light_yellow)
+  puts ColorizedString["**************************************************\n\n"].colorize(:magenta)
 end
 
 def planets_available_to_player(player)

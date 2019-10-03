@@ -10,6 +10,7 @@ gets.chomp
 new_line
 
 player.my_stats
+gets
 
 
 new_line
