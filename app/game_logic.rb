@@ -110,8 +110,8 @@ def planets_available_to_player(player)
   planets_visited = player.planets
   all_planets_minus_visited = Planet.all.select { |planet| !planets_visited.include?(planet) }
   all_planets_minus_visited.length < 3 ? number_of_planets_to_travel = 1 : number_of_planets_to_travel = rand(2..4)
-  can_travel_to = all_planets_minus_visited.sample(number_of_planets_to_travel).map { |planet| planet.name.downcase }
-  planet = $prompt.select("Which planet will you travel to now?", can_travel_to.map {|planet| planet.split.map(&:capitalize).join(" ")})
+  can_travel_to = all_planets_minus_visited.sample(number_of_planets_to_travel).map { |planet| planet.name}
+  planet = $prompt.select("Which planet will you travel to now?", can_travel_to)
 end
 
 def rocket
