@@ -11,5 +11,10 @@ ActiveRecord::Base.establish_connection(
 
 ActiveRecord::Base.logger = nil
 
+require 'colorize'
+require 'colorized_string'
+
 require_all 'app'
+
+
 

@@ -2,7 +2,7 @@ require_relative "../config/environment"
 
 
 def welcome
-    puts "                                                                   ..;===+.
+    puts ColorizedString["                                                                   ..;===+.
                                                                 .:=iiiiii=+=
                                                              .=i))=;::+)i=+,
                                                           ,=i);)I)))I):=i=;
@@ -38,17 +38,15 @@ def welcome
 .;==i+::::=)i=;
 ,+==iiiiii+,
     
-
-
-
-
+"].colorize(:color => :magenta)+
+ColorizedString["
 --                                                                                                                                       
 --   _ _ _ _____ __    _____ _____ _____ _____    _____ _____    _____ __    _____ _____ _____ _____ _____ _____ _____ _____ _____ _____ 
 --  | | | |   __|  |  |     |     |     |   __|  |_   _|     |  |  _  |  |  |  _  |   | |   __|_   _|  |  |     |  _  |  _  |   __| __  |
 --  | | | |   __|  |__|   --|  |  | | | |   __|    | | |  |  |  |   __|  |__|     | | | |   __| | | |     |  |  |   __|   __|   __|    -|
 --  |_____|_____|_____|_____|_____|_|_|_|_____|    |_| |_____|  |__|  |_____|__|__|_|___|_____| |_| |__|__|_____|__|  |__|  |_____|__|__|
 --                                                                                                                                       
-\r\n"
+\r\n"].colorize(:cyan)
 
     puts "Enter 'S' to Start"
 
@@ -83,7 +81,7 @@ def start
 end
 
 def new_line
-  puts "********************\n\n"
+  puts ColorizedString["**************************************************\n\n"].colorize(:light_yellow)
 end
 
 def planets_available_to_player(player)

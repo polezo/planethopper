@@ -1,4 +1,5 @@
-       
+require_relative "../../config/environment.rb"
+
 puts "      |
      / \\
     / _ \\
@@ -58,7 +59,8 @@ puts"
   /  |##!##|  \\
  |  / ^ | ^ \\  |
  | /  ( | )  \\ |
- |/   ( | )   \\|
+ |/   ( | )   \\|"+
+ ColorizedString["
      ((   ))
     ((  :  ))
     ((  :  ))
@@ -67,4 +69,4 @@ puts"
        ( )
         .
         .
-        "
+     "].colorize(:light_red)

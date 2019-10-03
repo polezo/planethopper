@@ -11,6 +11,38 @@ alive = true
 while alive
     new_line
     chosen_planet = planets_available_to_player(player)
+    puts"    
+        !
+        !
+        ^
+       / \\
+      /___\\
+     |=   =|
+     | P H |
+     | L O |
+     | A P |
+     | N P |
+     | E E |
+     | T R |
+     |     |
+     |     |
+     |     |
+    /|##!##|\\
+   / |##!##| \\
+  /  |##!##|  \\
+ |  / ^ | ^ \\  |
+ | /  ( | )  \\ |
+ |/   ( | )   \\|"+
+ ColorizedString["
+     ((   ))
+    ((  :  ))
+    ((  :  ))
+     ((   ))
+      (( ))
+       ( )
+        .
+        .
+     "].colorize(:light_red)
     new_line
     answer = player.on_planet_choice(chosen_planet)
     landing = Landing.create(player: player, planet: Planet.find_by(name: chosen_planet))
