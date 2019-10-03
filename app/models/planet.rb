@@ -3,7 +3,7 @@ class Planet < ActiveRecord::Base
     has_many :users, through: :landings
 
     
-    def encounter(player)
+    def encounter(player, landing)
         chance = rand(1..2)
         if chance == 1
             puts self.good_scenario
@@ -21,7 +21,11 @@ class Planet < ActiveRecord::Base
         wait = gets    
     end
     
-def lookup_planet_stats
+    # def deaths
+    #     Landing.count(:conditions => "id = self.id AND died = true")    
+    # end
+
+    def lookup_planet_stats
         self.landings.length == 0 ? text = "Congratulations! You are the first visitor to this #{self.name}" : text = "#{self.name} has been landed on by #{self.landings.length} explorers before you"
         puts text
         if self.creator == nil
@@ -34,9 +38,15 @@ def lookup_planet_stats
         else
             puts "#{self.champion} is the current champion of #{self.name}, but you can overtake them with a victory!"
         end
+
+        #puts "#{self.deaths} past travellers have died on this planet!"
         
         new_line
         wait = gets.chomp
     end
 
+end
+
+def deaths
+    Landing.count(:conditions => "id = self.id AND died = true")    
 end

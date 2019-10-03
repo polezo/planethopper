@@ -1,4 +1,5 @@
 require_relative "../config/environment"
+$prompt = TTY::Prompt.new
 
 
 def welcome
@@ -55,8 +56,9 @@ def welcome
 end
 
 def password_check
-  puts "To ensure you are not an imposter, what is your password?"
-  password = gets.chomp
+  new_line
+  rocket = $prompt.decorate('🚀')
+  password_check = $prompt.mask("To ensure you are not an imposter, what is your password?", mask: rocket)
 end
 
 def start 
@@ -66,10 +68,18 @@ def start
         new_line
         puts "Enter your name..."
         name = gets.chomp
+        if name == ''
+          puts "You have to enter something in the name!!!"
+          break
+        end
         if Player.find_by(name: name) ##if a player with the same name exists in DB
-          if Player.check_if_new_player(name) ##Asks player if they are new, returns true if they say yes
+          new_line
+          new_or_same = $prompt.select("#{name} has already been here! Are you #{name} or are you a new player?", ["New", "Returning"])
+          if new_or_same == 'New' ##Asks player if they are new, returns true if they say yes
             new_name = "#{name}" + "#{rand(1..3000)}"
-            puts "You will be called #{new_name}"  ##will create player with appended name
+            new_line
+            puts "Since that name has been taken, you will be called #{new_name}"  ##will create player with appended name
+            gets
             player = Player.create(name: new_name, life: 10)
             player.set_password
             break
@@ -103,12 +113,5 @@ def planets_available_to_player(player)
   all_planets_minus_visited = Planet.all.select { |planet| !planets_visited.include?(planet) }
   all_planets_minus_visited.length < 3 ? number_of_planets_to_travel = 1 : number_of_planets_to_travel = rand(2..4)
   can_travel_to = all_planets_minus_visited.sample(number_of_planets_to_travel).map { |planet| planet.name.downcase }
-  can_travel_to.each {|planet| puts planet.split.map(&:capitalize).join(" ")}
-  planet = gets.chomp.downcase
-  while !can_travel_to.include?(planet)
-    puts "You cannot travel there! Select one of the given planets!"
-    can_travel_to.each {|planet| puts planet.split.map(&:capitalize).join(" ")}
-    planet = gets.chomp.downcase
-  end
-    planet.capitalize
+  planet = $prompt.select("Which planet will you travel to now?", can_travel_to.map {|planet| planet.split.map(&:capitalize).join(" ")})
 end

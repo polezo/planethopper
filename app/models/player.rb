@@ -1,8 +1,9 @@
 class Player < ActiveRecord::Base
     has_many :landings
     has_many :planets, through: :landings
-    
 
+    $prompt = TTY::Prompt.new
+    
     def on_planet_choice(planet)
       puts "Congrats on safely arriving to #{planet}"
       puts "Do you want to look up the history of this planet or do you want to explore?? Enter 'lookup' or 'explore'"
@@ -106,28 +107,41 @@ class Player < ActiveRecord::Base
       gets
     end
 
-    def my_stats
-      puts "You have created x number of planets!!!"
-      puts "You are currently the champion of x number of planets!!!"
-      puts "You have visted x number of planets!!!"
+    def planets_created
+      Planet.all.select{|planet|  ##returns an array of all the planet objects the player has created
+        planet.creator == self.name}
     end
 
-    def self.check_if_new_player(name)
-      puts "#{name} has already been here! Are you #{name} or are you a new player? Enter 'new' or 'same'"
-      answer = gets.chomp
-      if answer == 'new'
-        return true
-      else answer == 'same'
-        return false
-      end
+    def champion_of
+      Planet.all.select{|planet|  ##returns an array of all the planet objects the player is the current champ
+        planet.champion == self.name}
+    end
+
+    def planets_visited
+      landings = Landing.all.select{|landing| ##array of all of the players landings
+        landing.player_id == self.id}
+
+      landings.map{|landing|      ## array of the names of every planet visited by player
+        Planet.find_by(id: landing.planet_id).name}
+    end
+
+    def my_stats
+      puts "You have created #{self.planets_created.count} planets!!!"
+      puts "You are currently the champion of #{self.champion_of.count} planets!!!"
+      puts "You have visted #{self.planets_visited.count} planets!!!"
     end
 
     def set_password
-      new_line
-      puts "Pick a password:"
-      password = gets.chomp
-      self.password = password
-      self.save
+      while true
+        new_line
+        rocket = $prompt.decorate('🚀')
+        password = $prompt.mask("Please set your password:", mask: rocket)
+        if password != ''
+          self.password = password
+          self.save
+          break
+        end
+      end
     end
 
 end

@@ -5,7 +5,15 @@ player = start
 return nil if !player ##ends the game if someone tries to log in as existing player and provides incorrect password
 
 new_line
-puts "You are off on an adventure and have enough gas to travel to one of the planets below: [Enter planet name]"
+puts "Here are your stats so far!"
+gets.chomp
+new_line
+
+player.my_stats
+
+
+new_line
+puts "You are off on an adventure and have enough gas to travel to one of the planets below"
 
 alive = true
 
@@ -15,7 +23,6 @@ while alive
     new_line
     answer = player.on_planet_choice(chosen_planet)
     landing = Landing.create(player: player, planet: Planet.find_by(name: chosen_planet))
-    #binding.pry
     new_line
     if answer == 'lookup'
         Planet.find_by(name: chosen_planet).lookup_planet_stats
@@ -23,7 +30,7 @@ while alive
         new_line
         wait = gets.chomp
     end
-    Planet.find_by(name: chosen_planet).encounter(player)
+    Planet.find_by(name: chosen_planet).encounter(player, landing)
     player.check_life
     if player.check_if_won
         player.create_planet(player)
