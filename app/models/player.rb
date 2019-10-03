@@ -106,4 +106,21 @@ class Player < ActiveRecord::Base
       gets
     end
 
+    def my_stats
+      puts "You have created x number of planets!!!"
+      puts "You are currently the champion of x number of planets!!!"
+      puts "You have visted x number of planets!!!"
+    end
+
+    def self.check_if_new_player(name)
+      puts "#{name} has already been here! Are you #{name} or are you a new player? Enter 'new' or 'same'"
+      answer = gets.chomp
+      if answer == 'new'
+        return true
+      else answer == 'same'
+        return false
+      end
+    end
+
+
 end
