@@ -24,7 +24,7 @@ while alive
     answer = player.on_planet_choice(chosen_planet)
     landing = Landing.create(player: player, planet: Planet.find_by(name: chosen_planet))
     new_line
-    if answer == 'lookup'
+    if answer == 'Lookup'
         Planet.find_by(name: chosen_planet).lookup_planet_stats
         puts "You have researched the planet, now you go out and explore what there is to see in this world"
         new_line

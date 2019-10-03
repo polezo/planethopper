@@ -6,14 +6,13 @@ class Player < ActiveRecord::Base
     
     def on_planet_choice(planet)
       puts "Congrats on safely arriving to #{planet}"
-      puts "Do you want to look up the history of this planet or do you want to explore?? Enter 'lookup' or 'explore'"
-      answer = gets.chomp
-      if answer == "explore"
-        return "explore"
-      elsif answer == "lookup" 
-        return "lookup"
-      end
-      planet
+      explore_or_lookup = $prompt.select("Do you want to look up the history of this planet or do you want to explore??", ["Lookup", "Explore"])
+      # if answer == "explore"
+      #   return "explore"
+      # elsif answer == "lookup" 
+      #   return "lookup"
+      # end
+      # #planet
     end
 
     def check_life
@@ -48,9 +47,8 @@ class Player < ActiveRecord::Base
     def battle_choice(planet)
       baddie_life = rand(3..6)
       while baddie_life > 0 && self.life > 0
-        puts "What will you do??...type 'F' to fight or 'R' to try and run away"
-        answer = gets.chomp
-        if answer.downcase == "f"
+        fight_or_run = $prompt.select("What will you do??", ["Fight", "Run"])
+        if fight_or_run == "Fight"
           new_line
           puts "THE FIGHT IS ON!"
           puts "Press 'a' to attack"
@@ -74,7 +72,7 @@ class Player < ActiveRecord::Base
           puts damage_text
           puts "You took #{damage_taken} damage from the enemies attack. You have #{self.life} hit points left. Press enter to continue"
           wait = gets.chomp
-        elsif answer.downcase == "r"
+        elsif fight_or_run == "Run"
           new_line
           puts "you try and run away"
           wait = gets.chomp
