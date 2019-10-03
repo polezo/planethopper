@@ -61,7 +61,17 @@ def start
         new_line
         puts "Enter your name..."
         name = gets.chomp
-        player = Player.new(name: name, life: 10)
+        if Player.find_by(name: name)
+          if Player.check_if_new_player(name)
+            new_name = "#{name}" + "#{rand(1..3000)}"
+            puts "You will be called #{new_name}"
+            player = Player.create(name: new_name, life: 10)
+          else
+            player = Player.find_by(name: name)
+            break
+          end
+        end
+        player = Player.create(name: name, life: 10)
         player.save
         break
     else
