@@ -114,7 +114,7 @@ class Player < ActiveRecord::Base
           if random_death < 2
             puts "Your #{armed.name} missfired and killed you!!!" 
             self.life = 0 
-            self.check_life 
+            break
           end
           puts text
           wait = gets.chomp
