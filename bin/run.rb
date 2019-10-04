@@ -49,6 +49,8 @@ while $alive
     end
 end
 
+puts "Thanks for playing! A game by Khaled and Adam"
+
 
 
 

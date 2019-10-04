@@ -56,7 +56,6 @@ class Player < ActiveRecord::Base
         else
           user_planet.good_alien = good_alien
           new_line
-          puts "Thanks for playing! A game by Khaled and Adam"
           break
         end
       end
