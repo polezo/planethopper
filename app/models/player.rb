@@ -194,15 +194,17 @@ class Player < ActiveRecord::Base
     end
 
     def set_password
+      rocket = $prompt.decorate('🚀')
       while true
         new_line
-        rocket = $prompt.decorate('🚀')
         password = $prompt.mask("Please set your password:", mask: rocket)
-        if password != ''
+        if password != nil
           self.password = password
           self.save
           break
         end
       end
     end
+
+
   end
