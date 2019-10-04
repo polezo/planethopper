@@ -6,18 +6,20 @@ class Player < ActiveRecord::Base
     $prompt = TTY::Prompt.new
     
     def on_planet_choice(planet)
-      case level_check
-      when 1
+      case self.level_check
+      when 0
       puts "Congrats on safely arriving to #{planet}"
       explore_or_lookup = $prompt.select("Do you want to look up the history of this planet or do you want to explore??", ["Lookup", "Explore"])
       else
         puts "Congrats on safely arriving to #{planet}"
         explore_or_lookup = $prompt.select("Do you want to look up the history of this planet or do you want to explore??", ["Lookup", "Explore","Store"])
     end
+    end
 
     def check_life
       if self.life <= 0
         puts "Game Over"
+        $alive = false
       else
         puts "You now have a life of #{self.life}"
       end
@@ -47,12 +49,12 @@ class Player < ActiveRecord::Base
       end
       while true
         puts "What good fortune could someone encounter on your planet? [Enter below]"
-        good_scenario = gets.chomp
-        if good_scenario == ''
+        good_alien = gets.chomp
+        if good_alien == ''
           new_line
           puts "You must describe what good things happen on your planet!!"
         else
-          user_planet.good_scenario = good_scenario
+          user_planet.good_alien = good_alien
           new_line
           puts "Thanks for playing! A game by Khaled and Adam"
           break
@@ -60,12 +62,12 @@ class Player < ActiveRecord::Base
       end
       while true
         puts "And what trouble awaits those who vist your planet? [Enter below]"
-        bad_scenario = gets.chomp
-        if bad_scenario == ''
+        bad_alien = gets.chomp
+        if bad_alien == ''
           new_line
           puts "You must describe the terror that awaits those who wander onto your planet!!"
         else
-          user_planet.bad_scenario = bad_scenario
+          user_planet.bad_alien = bad_alien
           new_line
           break
         end
@@ -73,35 +75,36 @@ class Player < ActiveRecord::Base
       user_planet.save
     end
 
-    def weapons_select
-       armory =  self.weapons.map{ |weapon| weapon.name }
+    def guns_select
+       armory =  self.weapons.all.map{ |weapon| weapon.name }
+       binding.pry
        armory
     end
 
     def level_check
-      self.planets.length
+      self.planets.count
     end
 
     def battle_choice(planet)
       case level_check
-      when (1..3)
-      baddie_life = rand(5..9)
+      when (0..3)
+      baddie_life = rand(3..6)
       damage_taken = rand(0..3)
       when (4..5)
-      baddie_life = rand(5..9)*1.5.to_i
+      baddie_life = rand(3..6)*1.5.to_i
       damage_taken = rand(0..3)*1.5.to_i
       else
-      baddie_life = rand(5..9)*2.5.to_i
+      baddie_life = rand(3..6)*2.5.to_i
       damage_taken = rand(0..3)*2.5.to_i
       end
-
+      
       while baddie_life > 0 && self.life > 0
         fight_or_run = $prompt.select("What will you do??", ["Fight",'Run'])
         if fight_or_run == "Fight"
           new_line
           puts "THE FIGHT IS ON!"
           damage_given = 0
-          weapon_choice = $prompt.select("What will you fight with?", self.weapons_select)
+          weapon_choice = $prompt.select("What will you fight with?", self.guns_select)
           armed = Weapon.find_by(name:weapon_choice,player_id: self.id)
           new_line
           text = "ATTACKING NOW!"
@@ -111,7 +114,7 @@ class Player < ActiveRecord::Base
           if random_death == 0
             puts "Your #{armed.name} missfired and killed you!!!" 
             self.life = 0 
-            self.check_life if random_death == 0
+            self.check_life 
           end
           puts text
           wait = gets.chomp
@@ -148,12 +151,21 @@ class Player < ActiveRecord::Base
         end
         self
       end
-
     end
 
     def won_fight(planet)
       new_line
+      case level_check
+      when (0..3)
+      money_dropped = rand(5..11)
+      when (4..5)
+      money_dropped = rand(5..11)*2.to_i
+      else
+      money_dropped = rand(4..10)*3.to_i
+      end
       puts "You won the fight! You are now the current champion of #{planet.name}!"
+      puts "YOU EARNED $#{money_dropped}!"
+      self.dollars += money_dropped
       planet.champion = self.name
       planet.save
       gets
@@ -195,5 +207,4 @@ class Player < ActiveRecord::Base
         end
       end
     end
-
-end
+  end

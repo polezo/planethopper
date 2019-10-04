@@ -1,10 +1,10 @@
 class Planet < ActiveRecord::Base
     has_many :landings
-    has_many :users, through: :landings
+    has_many :players, through: :landings
 
     
     def encounter(player, landing)
-        chance = rand(1..2)
+        chance = rand(1..3)
         if chance == 1
             puts self.good_alien
             wait = gets.chomp

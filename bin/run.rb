@@ -17,9 +17,9 @@ new_line
 puts "You are off on an adventure and have enough gas to travel to one of the planets below"
 gets
 
-alive = true
+$alive = true
 
-while alive
+while $alive
     new_line
     chosen_planet = planets_available_to_player(player)
     rocket
@@ -32,6 +32,10 @@ while alive
         puts "You have researched the planet, now you go out and explore what there is to see in this world"
         new_line
         wait = gets.chomp
+    end
+    if answer == 'Store'
+        Weapon.store(player)
+        puts "On your way back to your ship, you ran into an alien!"
     end
     Planet.find_by(name: chosen_planet).encounter(player, landing)
     player.check_life

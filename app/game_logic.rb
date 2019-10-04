@@ -78,7 +78,7 @@ def start
             new_line
             puts "Since that name has been taken, you will be called #{new_name}"  ##will create player with appended name
             gets
-            player = Player.create(name: new_name, life: 10)
+            player = Player.create(name: new_name, life: 10, dollars: 11)
             Weapon.base_weapons(player)
             player.set_password
             break
@@ -93,7 +93,7 @@ def start
             end
           end
         end
-        player = Player.create(name: name, life: 10)
+        player = Player.create(name: name, life: 10, dollars:11)
         Weapon.base_weapons(player)
         player.set_password
         break
@@ -111,8 +111,9 @@ end
 
 def planets_available_to_player(player)
   planets_visited = player.planets
+  
   all_planets_minus_visited = Planet.all.select { |planet| !planets_visited.include?(planet) }
-  all_planets_minus_visited.length < 3 ? number_of_planets_to_travel = 1 : number_of_planets_to_travel = rand(2..4)
+  all_planets_minus_visited.count < 3 ? number_of_planets_to_travel = 1 : number_of_planets_to_travel = rand(2..4)
   can_travel_to = all_planets_minus_visited.sample(number_of_planets_to_travel).map { |planet| planet.name}
   planet = $prompt.select("Which planet will you travel to now?", can_travel_to)
 end
