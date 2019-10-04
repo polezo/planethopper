@@ -87,13 +87,13 @@ class Player < ActiveRecord::Base
       case level_check
       when (0..3)
       baddie_life = rand(3..6)
-      damage_taken = rand(0..3)
+      damage_taken = rand(0..4)
       when (4..5)
       baddie_life = rand(3..7)*2
       damage_taken = rand(0..3)*2
       else
       baddie_life = rand(6..8)*3
-      damage_taken = rand(0..3)*3
+      damage_taken = rand(0..4)*3
       end
       
       while baddie_life > 0 && self.life > 0
@@ -105,18 +105,18 @@ class Player < ActiveRecord::Base
           weapon_choice = $prompt.select("What will you fight with?", self.guns_select)
           armed = Weapon.find_by(name:weapon_choice,player_id: self.id)
           new_line
-          text = "ATTACKING NOW!"
+          
           puts "Hell yeah you'll kill them with your fist, put up your dukes bad alien!!" if  weapon_choice == "Fist" 
           damage_given = rand(0..3)*armed.damage_level
-          armed.dangerous? == true ? random_death = rand(0..8) : random_death = 3
+          armed.dangerous? == true ? random_death = rand(0..7) : random_death = 3
           
           if random_death < 2
             puts "Your #{armed.name} missfired and killed you!!!" 
             self.life = 0 
             break
           end
-          puts text
-          wait = gets.chomp
+          puts "ATTACKING NOW"
+          sleep(1)
           baddie_life -= damage_given
           baddie_life = 0 if baddie_life <=0
           puts "uh oh..." if damage_given == 0
@@ -140,8 +140,9 @@ class Player < ActiveRecord::Base
             wait = gets.chomp
             break
           else 
-            puts "Run away unsuccessful. They've got you cornered and got a free hit on you and you lost 2 life!"
-            self.life -= 2
+            life_lost = rand(2..4)
+            puts "Run away unsuccessful. They've got you cornered and got a free hit on you and you lost #{life_lost} life!"
+            self.life -= life_lost
           end
         end
         if self.life <= 0

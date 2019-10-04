@@ -1,5 +1,3 @@
-
-
 class Weapon < ActiveRecord::Base
     belongs_to :player
 
@@ -92,7 +90,7 @@ class Weapon < ActiveRecord::Base
     
         price1 = Weapon.generate_weapon_for_store(selection[0]).damage_level*3-rand(1-3)
         price2 = Weapon.generate_weapon_for_store(selection[1]).damage_level*3-rand(1-3)
-        price3 = Weapon.generate_weapon_for_store(selection[2]).damage_level*3-rand(1-3)
+        price3 = Weapon.generate_weapon_for_store(selection[2]).damage_level*4-rand(3-7)
 
         selection_with_prices = []
 

@@ -15,7 +15,7 @@ class Planet < ActiveRecord::Base
         if chancey < 3
             puts goodie_intros.sample(1)[0] + self.good_alien + goodie_goodies.sample(1)[0]
             wait = gets.chomp
-            amount = rand(1..4)*rand(1..2)
+            amount = rand(1..8)
             if chancey == 1
             puts ColorizedString["It's a medkit! Your health has increased by #{amount}."].colorize(:yellow) 
             player.life += amount
