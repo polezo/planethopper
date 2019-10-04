@@ -4,10 +4,7 @@ class CreateWeaponsAndRenameGoodAndBadAliens < ActiveRecord::Migration[5.2]
         t.string :name
         t.integer :damage_level
         t.boolean :dangerous?
-
-        rename_column :planets, :good_scenario, :good_alien
-        rename_column :planets, :bad_scenario, :bad_alien
-
+        t.string :player_id
       end
     end
   end

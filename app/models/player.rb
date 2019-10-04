@@ -6,8 +6,13 @@ class Player < ActiveRecord::Base
     $prompt = TTY::Prompt.new
     
     def on_planet_choice(planet)
+      case level_check
+      when 1
       puts "Congrats on safely arriving to #{planet}"
       explore_or_lookup = $prompt.select("Do you want to look up the history of this planet or do you want to explore??", ["Lookup", "Explore"])
+      else
+        puts "Congrats on safely arriving to #{planet}"
+        explore_or_lookup = $prompt.select("Do you want to look up the history of this planet or do you want to explore??", ["Lookup", "Explore","Store"])
     end
 
     def check_life
@@ -68,34 +73,56 @@ class Player < ActiveRecord::Base
       user_planet.save
     end
 
-    def weapons
-        self.weapons.map(&name)
+    def weapons_select
+       armory =  self.weapons.map{ |weapon| weapon.name }
+       armory
+    end
+
+    def level_check
+      self.planets.length
     end
 
     def battle_choice(planet)
-      binding.pry
-      baddie_life = rand(3..6)
+      case level_check
+      when (1..3)
+      baddie_life = rand(5..9)
+      damage_taken = rand(0..3)
+      when (4..5)
+      baddie_life = rand(5..9)*1.5.to_i
+      damage_taken = rand(0..3)*1.5.to_i
+      else
+      baddie_life = rand(5..9)*2.5.to_i
+      damage_taken = rand(0..3)*2.5.to_i
+      end
+
       while baddie_life > 0 && self.life > 0
-        fight_or_run = $prompt.select("What will you do??", ["Fight", "Run"])
+        fight_or_run = $prompt.select("What will you do??", ["Fight",'Run'])
         if fight_or_run == "Fight"
           new_line
           puts "THE FIGHT IS ON!"
-          puts "Press 'a' to attack"
           damage_given = 0
-          weapon_coice = $prompt.select("What will you fight with?", weapons)
+          weapon_choice = $prompt.select("What will you fight with?", self.weapons_select)
+          armed = Weapon.find_by(name:weapon_choice,player_id: self.id)
           new_line
           text = "ATTACKING NOW!"
-          answer2.downcase == "a" ? damage_given = rand(0..3) : text = "that's not an attack! The enemy now has time to attack for free" 
+          puts "Hell yeah you'll kill them with your fist, put up your dukes bad alien!!" if  weapon_choice == "Fist" 
+          damage_given = rand(0..3)*armed.damage_level
+          random_death = rand(0..8) if armed.dangerous? == true
+          if random_death == 0
+            puts "Your #{armed.name} missfired and killed you!!!" 
+            self.life = 0 
+            self.check_life if random_death == 0
+          end
           puts text
           wait = gets.chomp
           baddie_life -= damage_given
+          baddie_life = 0 if baddie_life <=0
           puts "uh oh..." if damage_given == 0
-          puts "You did #{damage_given} damage to your enemy, they have #{baddie_life} hit points left" 
+          puts "You did #{damage_given} damage to your enemy with your #{armed.name}, they have #{baddie_life} hit points left" 
           self.won_fight(planet) if baddie_life <= 0
           break if baddie_life <= 0
           puts "Enemy is now attacking. Press enter to try and dodge"
           wait = gets.chomp
-          damage_taken = rand(0..3)
           self.life -= damage_taken
           damage_taken == 0 ? damage_text = "They missed! Nice dodge" : damage_text = "They still hit you!"
           puts damage_text

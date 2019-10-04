@@ -79,11 +79,13 @@ def start
             puts "Since that name has been taken, you will be called #{new_name}"  ##will create player with appended name
             gets
             player = Player.create(name: new_name, life: 10)
+            Weapon.base_weapons(player)
             player.set_password
             break
           else
             if password_check == Player.find_by(name: name).password ##if they provide
               player = Player.find_by(name: name) ##correct password will not create new player
+              Weapon.base_weapons(player)
               break         ## but let them continue as themselves
             else
               puts "Imposter, begone from here!"
@@ -92,6 +94,7 @@ def start
           end
         end
         player = Player.create(name: name, life: 10)
+        Weapon.base_weapons(player)
         player.set_password
         break
     else

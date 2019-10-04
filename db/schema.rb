@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 9) do
     t.string "name"
     t.integer "damage_level"
     t.boolean "dangerous?"
+    t.string "player_id"
   end
 
 end
