@@ -49,11 +49,11 @@ class Player < ActiveRecord::Base
         end
       end
       while true
-        puts "What good fortune could someone encounter on your planet? [Enter below]"
+        puts "Name the nice alien or other frienly creature who lives on your planet [Enter below]"
         good_alien = gets.chomp
         if good_alien == ''
           new_line
-          puts "Name the nice alien or friendly person who lives on your planet"
+          puts "You must name the nice alien or friendly person to continue"
         else
           user_planet.good_alien = good_alien
           new_line
