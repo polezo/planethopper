@@ -77,8 +77,6 @@ class Player < ActiveRecord::Base
 
     def guns_select
        armory =  self.weapons.all.map{ |weapon| weapon.name }
-       binding.pry
-       armory
     end
 
     def level_check
@@ -91,11 +89,11 @@ class Player < ActiveRecord::Base
       baddie_life = rand(3..6)
       damage_taken = rand(0..3)
       when (4..5)
-      baddie_life = rand(3..6)*1.5.to_i
-      damage_taken = rand(0..3)*1.5.to_i
+      baddie_life = rand(3..6)*2
+      damage_taken = rand(0..3)*2
       else
-      baddie_life = rand(3..6)*2.5.to_i
-      damage_taken = rand(0..3)*2.5.to_i
+      baddie_life = rand(3..6)*3
+      damage_taken = rand(0..3)*3
       end
       
       while baddie_life > 0 && self.life > 0
@@ -159,9 +157,9 @@ class Player < ActiveRecord::Base
       when (0..3)
       money_dropped = rand(5..11)
       when (4..5)
-      money_dropped = rand(5..11)*2.to_i
+      money_dropped = rand(3..7)*2
       else
-      money_dropped = rand(4..10)*3.to_i
+      money_dropped = rand(5..8)*2
       end
       puts "You won the fight! You are now the current champion of #{planet.name}!"
       puts "YOU EARNED $#{money_dropped}!"

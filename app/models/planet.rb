@@ -4,13 +4,18 @@ class Planet < ActiveRecord::Base
 
     
     def encounter(player, landing)
+        baddie_intros = ["Oh no, you've run in to ", "Watch out! you've encountered ", "Yikes, it's ", "There's ","Careful that's "]
+        baddie_weapons = [" a space tommy gun!"," laser nunchucks!"," laser nostril powers!"," a handful of poop ready to throw!"," space throwing stars!"]
+        
+        goodie_intros = ["Wow, it's ", "Hurray you've met"]
+        
         chance = rand(1..3)
         if chance == 1
             puts self.good_alien
             wait = gets.chomp
             player.life += 2
         else
-            puts self.bad_alien
+            puts baddie_intros.sample(1)[0] + self.bad_alien + " with" + baddie_weapons.sample(1)[0]
             player.battle_choice(self)
             if player.life == 0
                 landing.died = true
