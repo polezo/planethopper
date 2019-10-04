@@ -38,7 +38,6 @@ while $alive
         puts "On your way back to your ship, you ran into an alien!"
     end
     Planet.find_by(name: chosen_planet).encounter(player, landing)
-    player.check_life
     if player.check_if_won
         player.create_planet(player)
         break
@@ -48,6 +47,7 @@ while $alive
         break
     end
     puts "Your business on #{chosen_planet} is finished! On to your next voyage!"
+    player.check_life
     wait = gets
 end
 

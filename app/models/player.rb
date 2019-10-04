@@ -54,7 +54,7 @@ class Player < ActiveRecord::Base
         good_alien = gets.chomp
         if good_alien == ''
           new_line
-          puts "Name the nice alien or firendly person who lives on your planet"
+          puts "Name the nice alien or friendly person who lives on your planet"
         else
           user_planet.good_alien = good_alien
           new_line
@@ -110,8 +110,9 @@ class Player < ActiveRecord::Base
           text = "ATTACKING NOW!"
           puts "Hell yeah you'll kill them with your fist, put up your dukes bad alien!!" if  weapon_choice == "Fist" 
           damage_given = rand(0..3)*armed.damage_level
-          random_death = rand(0..8) if armed.dangerous? == true
-          if random_death == 0
+          armed.dangerous? == true ? random_death = rand(0..8) : random_death = 3
+          
+          if random_death < 2
             puts "Your #{armed.name} missfired and killed you!!!" 
             self.life = 0 
             self.check_life 
@@ -164,7 +165,7 @@ class Player < ActiveRecord::Base
       money_dropped = rand(8..12)
       end
       puts "You won the fight! You are now the current champion of #{planet.name}!"
-      puts "YOU EARNED $#{money_dropped}!"
+      puts "YOU EARNED " + ColorizedString["$#{money_dropped}!"].colorize(:yellow)
       self.dollars += money_dropped
       planet.champion = self.name
       planet.save

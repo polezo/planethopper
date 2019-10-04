@@ -17,11 +17,11 @@ class Planet < ActiveRecord::Base
             wait = gets.chomp
             amount = rand(1..4)*rand(1..2)
             if chancey == 1
-            puts ColorizedString["It's a medkit! Your health has increased by #{amount}."].colorize(:green) 
+            puts ColorizedString["It's a medkit! Your health has increased by #{amount}."].colorize(:yellow) 
             player.life += amount
             else
                 player.dollars += amount
-                puts ColorizedString["It's cold hard cash bby! Your cash stack has increased by #{amount}, which makes a total of #{player.dollars} dollars in your space wallet."].colorize(:green) 
+                puts ColorizedString["It's cold hard cash bby! Your cash stack has increased by #{amount}, which makes a total of #{player.dollars} dollars in your space wallet."].colorize(:yellow) 
             end
         else
             puts baddie_intros.sample(1)[0] + self.bad_alien + " with" + baddie_weapons.sample(1)[0]
