@@ -7,7 +7,7 @@ class Planet < ActiveRecord::Base
         baddie_intros = ["Oh no, you've run into ", "Watch out! You've encountered ", "Yikes, it's ", "There's ","Careful, that's "]
         baddie_weapons = [" a space tommy gun!"," laser nunchucks!"," laser nostril powers!"," a handful of poop ready to throw!"," space throwing stars!", " laser legos for you to step on!"]
         
-        goodie_intros = ["Wow, it's ", "Hurray you've met ", "What luck! You've run into a ", "It's ", "Nice, it's ", "Cool beans, that's "]
+        goodie_intros = ["Wow, it's ", "Hurray you've met ", "What luck! You've run into ", "It's ", "Nice, it's ", "Cool beans, that's "]
         goodie_goodies = [" with treats just for you!", " holding a present for you!"," with something good for you!", " and it looks like they've got a gift for you!", " getting ready to give you a gift!"]
         
         chancey = rand(1..7)
