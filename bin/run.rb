@@ -42,7 +42,7 @@ while $alive
         player.create_planet(player)
         break
     end
-    if player.life == 0
+    if player.life <= 0
         puts "You died!! Game Over"
         break
     end
