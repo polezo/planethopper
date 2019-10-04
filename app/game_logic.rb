@@ -78,7 +78,7 @@ def start
             new_line
             puts "Since that name has been taken, you will be called #{new_name}"  ##will create player with appended name
             gets
-            player = Player.create(name: new_name, life: 10, dollars: 11)
+            player = Player.create(name: new_name, life: 10, dollars: 8)
             Weapon.base_weapons(player)
             player.set_password
             break
@@ -93,7 +93,7 @@ def start
             end
           end
         end
-        player = Player.create(name: name, life: 10, dollars:11)
+        player = Player.create(name: name, life: 10, dollars:8)
         Weapon.base_weapons(player)
         player.set_password
         break

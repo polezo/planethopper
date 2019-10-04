@@ -6,7 +6,9 @@ class Player < ActiveRecord::Base
     $prompt = TTY::Prompt.new
     
     def on_planet_choice(planet)
+      
       case self.level_check
+        
       when 0
       puts "Congrats on safely arriving to #{planet}"
       explore_or_lookup = $prompt.select("Do you want to look up the history of this planet or do you want to explore??", ["Lookup", "Explore"])
@@ -21,7 +23,7 @@ class Player < ActiveRecord::Base
         puts "Game Over"
         $alive = false
       else
-        puts "You now have a life of #{self.life}"
+        puts "Your life is currently" + ColorizedString[" #{self.life}"].colorize(:red) 
       end
         self.life
     end
@@ -52,7 +54,7 @@ class Player < ActiveRecord::Base
         good_alien = gets.chomp
         if good_alien == ''
           new_line
-          puts "You must describe what good things happen on your planet!!"
+          puts "Name the nice alien or firendly person who lives on your planet"
         else
           user_planet.good_alien = good_alien
           new_line
@@ -61,7 +63,7 @@ class Player < ActiveRecord::Base
         end
       end
       while true
-        puts "And what trouble awaits those who vist your planet? [Enter below]"
+        puts "And name the alien or other bad guy who lives on your planet... [Enter below]"
         bad_alien = gets.chomp
         if bad_alien == ''
           new_line
@@ -155,11 +157,11 @@ class Player < ActiveRecord::Base
       new_line
       case level_check
       when (0..3)
-      money_dropped = rand(5..11)
+      money_dropped = rand(5..7)
       when (4..5)
-      money_dropped = rand(3..7)*2
+      money_dropped = rand(6..10)
       else
-      money_dropped = rand(5..8)*2
+      money_dropped = rand(8..12)
       end
       puts "You won the fight! You are now the current champion of #{planet.name}!"
       puts "YOU EARNED $#{money_dropped}!"

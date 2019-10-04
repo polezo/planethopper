@@ -4,16 +4,25 @@ class Planet < ActiveRecord::Base
 
     
     def encounter(player, landing)
-        baddie_intros = ["Oh no, you've run in to ", "Watch out! you've encountered ", "Yikes, it's ", "There's ","Careful that's "]
-        baddie_weapons = [" a space tommy gun!"," laser nunchucks!"," laser nostril powers!"," a handful of poop ready to throw!"," space throwing stars!"]
+        baddie_intros = ["Oh no, you've run into ", "Watch out! You've encountered ", "Yikes, it's ", "There's ","Careful, that's "]
+        baddie_weapons = [" a space tommy gun!"," laser nunchucks!"," laser nostril powers!"," a handful of poop ready to throw!"," space throwing stars!", " laser legos for you to step on!"]
         
-        goodie_intros = ["Wow, it's ", "Hurray you've met"]
+        goodie_intros = ["Wow, it's ", "Hurray you've met ", "What luck! You've run into a ", "It's ", "Nice, it's ", "Cool beans, that's "]
+        goodie_goodies = [" with treats just for you!", " holding a present for you!"," with something good for you!", " and it looks like they've got a gift for you!", " getting ready to give you a gift!"]
         
-        chance = rand(1..3)
-        if chance == 1
-            puts self.good_alien
+        chancey = rand(1..7)
+        
+        if chancey < 3
+            puts goodie_intros.sample(1)[0] + self.good_alien + goodie_goodies.sample(1)[0]
             wait = gets.chomp
-            player.life += 2
+            amount = rand(1..4)*rand(1..2)
+            if chancey == 1
+            puts ColorizedString["It's a medkit! Your health has increased by #{amount}."].colorize(:green) 
+            player.life += amount
+            else
+                player.dollars += amount
+                puts ColorizedString["It's cold hard cash bby! Your cash stack has increased by #{amount}, which makes a total of #{player.dollars} dollars in your space wallet."].colorize(:green) 
+            end
         else
             puts baddie_intros.sample(1)[0] + self.bad_alien + " with" + baddie_weapons.sample(1)[0]
             player.battle_choice(self)
@@ -22,8 +31,6 @@ class Planet < ActiveRecord::Base
                 landing.save
             end
         end
-        puts "Your business on #{self.name} is finished! On to your next voyage!"
-        wait = gets    
     end
     
     def deaths
