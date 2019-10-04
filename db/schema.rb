@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 9) do
 
   create_table "planets", force: :cascade do |t|
     t.string "name"
-    t.string "bad_scenario"
-    t.string "good_scenario"
+    t.string "bad_alien"
+    t.string "good_alien"
     t.string "creator"
     t.string "champion"
   end
@@ -34,8 +34,7 @@ ActiveRecord::Schema.define(version: 9) do
 
   create_table "weapons", force: :cascade do |t|
     t.string "name"
-    t.integer "damage_low"
-    t.integer "damage_high"
+    t.integer "damage_level"
     t.boolean "dangerous?"
   end
 

@@ -6,11 +6,11 @@ class Planet < ActiveRecord::Base
     def encounter(player, landing)
         chance = rand(1..2)
         if chance == 1
-            puts self.good_scenario
+            puts self.good_alien
             wait = gets.chomp
             player.life += 2
         else
-            puts self.bad_scenario
+            puts self.bad_alien
             player.battle_choice(self)
             if player.life == 0
                 landing.died = true

@@ -68,7 +68,12 @@ class Player < ActiveRecord::Base
       user_planet.save
     end
 
+    def weapons
+        self.weapons.map(&name)
+    end
+
     def battle_choice(planet)
+      binding.pry
       baddie_life = rand(3..6)
       while baddie_life > 0 && self.life > 0
         fight_or_run = $prompt.select("What will you do??", ["Fight", "Run"])
@@ -77,7 +82,7 @@ class Player < ActiveRecord::Base
           puts "THE FIGHT IS ON!"
           puts "Press 'a' to attack"
           damage_given = 0
-          answer2 = gets.chomp 
+          weapon_coice = $prompt.select("What will you fight with?", weapons)
           new_line
           text = "ATTACKING NOW!"
           answer2.downcase == "a" ? damage_given = rand(0..3) : text = "that's not an attack! The enemy now has time to attack for free" 
