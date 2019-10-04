@@ -20,7 +20,6 @@ class Player < ActiveRecord::Base
 
     def check_life
       if self.life <= 0
-        puts "Game Over"
         $alive = false
       else
         puts "Your life is currently" + ColorizedString[" #{self.life}"].colorize(:red) 
