@@ -76,13 +76,16 @@ class Weapon < ActiveRecord::Base
 
 
     def self.store(player)
+        medkit_price = rand(4..7)
         case player.level_check
         when (0..3)
         selection = self.weapons_array[0..3].sample(3)
-        when (4..5)
+        when (4..6)
         selection = self.weapons_array[4..7].sample(3)
+        medkit_price *=2
         else
         selection = self.weapons_array[8..11].sample(3)
+        medkit_price *=3
         end
 
         #this code is hideous someone help meeeeee
@@ -91,12 +94,13 @@ class Weapon < ActiveRecord::Base
         price1 = Weapon.generate_weapon_for_store(selection[0]).damage_level*3-rand(1-3)
         price2 = Weapon.generate_weapon_for_store(selection[1]).damage_level*3-rand(1-3)
         price3 = Weapon.generate_weapon_for_store(selection[2]).damage_level*4-rand(3-7)
-
+    
         selection_with_prices = []
 
         selection_with_prices << selection[0] + ".....$#{price1}"
         selection_with_prices << selection[1] + ".....$#{price2}"
         selection_with_prices << selection[2] + ".....$#{price3}"
+        selection_with_prices << "Medkit" + "........$#{medkit_price}"
 
 
         # selection_with_prices = selection.each { |weapon| weapon + ".....$#{price}" }
@@ -125,7 +129,6 @@ class Weapon < ActiveRecord::Base
         new_line
         puts ColorizedString["You are the proud owner of a new #{selection[1]}!!!"].colorize(:yellow)
         new_line
-            break
         elsif
             selection_with_prices.index(purchase_or_exit) == 2 && player.dollars >= price3
         gun3 = Weapon.generate_weapon(selection[2],player)
@@ -135,7 +138,15 @@ class Weapon < ActiveRecord::Base
         
         new_line
             puts ColorizedString["You are the proud owner of a new #{selection[2]}!!!"].colorize(:yellow)
-            break
+        
+        elsif
+            selection_with_prices.index(purchase_or_exit) == 3 && player.dollars >= medkit_price
+            health_increase = (medkit_price-rand(1-3))*rand(1..2)
+            player.dollars -= medkit_price
+            player.life += health_increase
+            new_line
+            puts ColorizedString["Your health has increased by #{health_increase}!!!"].colorize(:yellow)
+
         else
             new_line
             puts ColorizedString["You don't have enough money for that!!"].colorize(:light_red)

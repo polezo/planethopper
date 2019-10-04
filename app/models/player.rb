@@ -86,14 +86,14 @@ class Player < ActiveRecord::Base
     def battle_choice(planet)
       case level_check
       when (0..3)
-      baddie_life = rand(3..6)
-      damage_taken = rand(0..4)
+      baddie_life = rand(3..7)
+      damage_taken = rand(0..5)
       when (4..5)
-      baddie_life = rand(3..7)*2
-      damage_taken = rand(0..3)*2
+      baddie_life = rand(4..7)*2
+      damage_taken = rand(0..5)*2
       else
-      baddie_life = rand(6..8)*3
-      damage_taken = rand(0..4)*3
+      baddie_life = rand(4..7)*3
+      damage_taken = rand(0..5)*3
       end
       
       while baddie_life > 0 && self.life > 0
