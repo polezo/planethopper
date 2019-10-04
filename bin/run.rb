@@ -47,6 +47,8 @@ while $alive
         puts "You died!! Game Over"
         break
     end
+    puts "Your business on #{chosen_planet} is finished! On to your next voyage!"
+    wait = gets
 end
 
 

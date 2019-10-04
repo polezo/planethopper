@@ -115,8 +115,6 @@ class Weapon < ActiveRecord::Base
         
         player.dollars -= price1
         
-        
-        
         new_line
         puts ColorizedString["You are the proud owner of a new #{selection[0]}!!!"].colorize(:yellow)
             break
@@ -125,11 +123,10 @@ class Weapon < ActiveRecord::Base
         gun2 = Weapon.generate_weapon(selection[1],player)
        
         player.dollars -= price2
-       
-       
         
         new_line
         puts ColorizedString["You are the proud owner of a new #{selection[1]}!!!"].colorize(:yellow)
+        new_line
             break
         elsif
             selection_with_prices.index(purchase_or_exit) == 2 && player.dollars >= price3
