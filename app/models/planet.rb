@@ -26,7 +26,7 @@ class Planet < ActiveRecord::Base
         else
             puts baddie_intros.sample(1)[0] + self.bad_alien + " with" + baddie_weapons.sample(1)[0]
             player.battle_choice(self)
-            if player.life == 0
+            if player.life <= 0
                 landing.died = true
                 landing.save
             end
@@ -34,7 +34,15 @@ class Planet < ActiveRecord::Base
     end
     
     def deaths
-        Landing.where("planet_id = ? AND died = ?", self.id, true).count    
+        Landing.where("planet_id = ? AND died = ?", self.id, true)
+    end
+
+    def graveyard
+        if self.deaths.count > 0
+            new_line
+            puts "Here lies all those who have died on this planet:"
+            puts self.deaths.map{|death| Player.find_by(id: death.player_id).name}
+        end
     end
 
     def lookup_planet_stats
@@ -51,14 +59,11 @@ class Planet < ActiveRecord::Base
             puts "#{self.champion} is the current champion of #{self.name}, but you can overtake them with a victory!"
         end
 
-        puts "#{self.deaths} past travellers have died on this planet!"
+        puts "#{self.deaths.count} past travellers have died on this planet!"
+        self.graveyard
         
         new_line
         wait = gets.chomp
     end
 
-end
-
-def deaths
-    Landing.count(:conditions => "id = self.id AND died = true")    
 end

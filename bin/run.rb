@@ -51,6 +51,8 @@ while $alive
     wait = gets
 end
 
+puts "Thanks for playing! A game by Khaled and Adam"
+
 
 
 
